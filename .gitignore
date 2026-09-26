@@ -6,3 +6,6 @@ xcuserdata/
 *.xcuserstate
 DerivedData/
 build/
+
+# Private API keys — never upload
+Game-Backlog/Secrets.swift

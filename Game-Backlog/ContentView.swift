@@ -81,22 +81,17 @@ struct GameRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            // Placeholder "cover art" — Step 2 replaces this with real covers from the API.
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.indigo.gradient)
-                .frame(width: 48, height: 64)
-                .overlay(
-                    Text(String(game.title.prefix(1)).uppercased())
-                        .font(.title2.bold())
-                        .foregroundStyle(.white)
-                )
+            CoverArt(url: game.coverURL, title: game.title, width: 48, height: 64)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(game.title)
                     .font(.headline)
-                Text(game.platform.label)
+                // e.g. "PC · 2017 · Action, Indie"
+                Text([game.platform.label, game.releaseYear.map(String.init) ?? "", game.genres]
+                        .filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.caption)
                     .foregroundStyle(.secondary)
+                    .lineLimit(1)
                 if game.rating > 0 {
                     Text(String(repeating: "★", count: game.rating))
                         .font(.caption)
@@ -105,6 +100,32 @@ struct GameRow: View {
             }
         }
         .padding(.vertical, 4)
+    }
+}
+
+// Cover image loaded from the web, with the letter tile as a fallback
+// while it loads or if there's no image.
+struct CoverArt: View {
+    let url: String?
+    let title: String
+    var width: CGFloat = 48
+    var height: CGFloat = 64
+
+    var body: some View {
+        AsyncImage(url: url.flatMap(URL.init(string:))) { phase in
+            if let image = phase.image {
+                image.resizable().scaledToFill()
+            } else {
+                ZStack {
+                    Rectangle().fill(.indigo.gradient)
+                    Text(String(title.prefix(1)).uppercased())
+                        .font(.title2.bold())
+                        .foregroundStyle(.white)
+                }
+            }
+        }
+        .frame(width: width, height: height)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 

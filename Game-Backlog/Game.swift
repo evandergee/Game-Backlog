@@ -58,12 +58,24 @@ final class Game {
     var notes: String
     var dateAdded: Date
 
-    init(title: String, status: GameStatus, platform: Platform, rating: Int = 0, notes: String = "") {
+    // STEP 2: extra columns filled in from RAWG (optional, since games can still be added by hand).
+    // New columns with defaults are added to the existing database automatically.
+    var coverURL: String? = nil
+    var releaseYear: Int? = nil
+    var genres: String = ""
+    var rawgID: Int? = nil
+
+    init(title: String, status: GameStatus, platform: Platform, rating: Int = 0, notes: String = "",
+         coverURL: String? = nil, releaseYear: Int? = nil, genres: String = "", rawgID: Int? = nil) {
         self.title = title
         self.status = status
         self.platform = platform
         self.rating = rating
         self.notes = notes
         self.dateAdded = Date()
+        self.coverURL = coverURL
+        self.releaseYear = releaseYear
+        self.genres = genres
+        self.rawgID = rawgID
     }
 }
