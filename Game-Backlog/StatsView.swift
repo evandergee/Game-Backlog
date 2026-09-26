@@ -42,7 +42,7 @@ struct StatsView: View {
                 if !games.isEmpty {
                     ToolbarItem(placement: .topBarLeading) {
                         ShareLink(item: GamesCSV(games: games),
-                                  preview: SharePreview("Game Backlog (\(games.count) games)")) {
+                                  preview: SharePreview("CSV file · \(games.count) games", image: Image(systemName: "tablecells"))) {
                             Label("Export CSV", systemImage: "square.and.arrow.up")
                                 .labelStyle(.titleAndIcon)   // show the words, not just the icon
                         }
