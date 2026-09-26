@@ -64,3 +64,7 @@ An iPhone app for tracking your video game backlog, built with SwiftUI and Swift
 ## Credits
 
 Game data and images are provided by [RAWG](https://rawg.io).
+
+## License
+
+The code is released under the [MIT License](LICENSE). Game data and cover images come from RAWG and are covered by [RAWG's terms](https://rawg.io/apidocs), not this license.
