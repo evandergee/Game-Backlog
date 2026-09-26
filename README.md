@@ -67,4 +67,4 @@ Game data and images are provided by [RAWG](https://rawg.io).
 
 ## License
 
-The code is released under the [MIT License](LICENSE). Game data and cover images come from RAWG and are covered by [RAWG's terms](https://rawg.io/apidocs), not this license.
+Copyright © 2026 Evan Gilb. All rights reserved. This code is shared for viewing and portfolio purposes only and may not be copied, modified or reused without permission. See [LICENSE](LICENSE). Game data and cover images come from RAWG and are covered by [RAWG's terms](https://rawg.io/apidocs).
