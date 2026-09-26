@@ -2,6 +2,14 @@
 
 An iPhone app for tracking your video game backlog, built with SwiftUI and SwiftData. Search the [RAWG](https://rawg.io) game database to add games with cover art, release year and genres, then track what you're playing and how you'd rate it.
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/main-list.png" width="260" alt="Main list with status tabs, cover art and ratings">
+  <img src="screenshots/stats-drilldown.png" width="260" alt="Stats dashboard with a bar tapped to show its games">
+  <img src="screenshots/stats-ratings.png" width="260" alt="Ratings and release decade charts">
+</p>
+
 ## Features
 
 - **Search as you type.** Find any game in RAWG's database of 500,000+ titles. Tapping a result fills in the title, cover art, release year and genres, and narrows the platform list to the platforms that game was released on.
