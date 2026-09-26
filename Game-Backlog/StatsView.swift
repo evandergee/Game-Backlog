@@ -38,6 +38,16 @@ struct StatsView: View {
             .background(NeonBackground())
             .navigationTitle("Stats")
             .toolbar {
+                // STEP 5: export every game as a CSV file through the share sheet
+                if !games.isEmpty {
+                    ToolbarItem(placement: .topBarLeading) {
+                        ShareLink(item: GamesCSV(games: games),
+                                  preview: SharePreview("Game Backlog (\(games.count) games)")) {
+                            Label("Export CSV", systemImage: "square.and.arrow.up")
+                                .labelStyle(.titleAndIcon)   // show the words, not just the icon
+                        }
+                    }
+                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
                 }
