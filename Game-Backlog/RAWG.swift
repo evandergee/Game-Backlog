@@ -33,14 +33,15 @@ struct RAWGGame: Decodable, Identifiable {
     }
 
     // Best guess at which of OUR platform choices fits, based on RAWG's list.
+    // Checks our platforms in order (PC first, then newest consoles) and takes the first match.
     var suggestedPlatform: Platform? {
-        let names = (platforms ?? []).map(\.platform.name)
-        if names.contains(where: { $0 == "PC" }) { return .pc }
-        if names.contains(where: { $0.hasPrefix("PlayStation") }) { return .playstation }
-        if names.contains(where: { $0.hasPrefix("Xbox") }) { return .xbox }
-        if names.contains(where: { $0.contains("Nintendo Switch") }) { return .nintendoSwitch }
-        if names.contains(where: { $0 == "iOS" || $0 == "Android" }) { return .mobile }
-        return nil
+        matchedPlatforms.first
+    }
+
+    // Every one of OUR platforms this game came out on, in our list order.
+    var matchedPlatforms: [Platform] {
+        let names = Set((platforms ?? []).map(\.platform.name))
+        return Platform.allCases.filter { p in p.rawgNames.contains(where: names.contains) }
     }
 }
 

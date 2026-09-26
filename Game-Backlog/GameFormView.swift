@@ -17,6 +17,13 @@ struct GameFormView: View {
     @State private var genres: String
     @State private var rawgID: Int?
 
+    // Platforms of the game picked from search (empty = show every platform)
+    @State private var availablePlatforms: [Platform] = []
+    @State private var showAllPlatforms = false
+    private var showingGamePlatformsOnly: Bool {
+        !availablePlatforms.isEmpty && !showAllPlatforms
+    }
+
     // Search state
     @State private var searchText = ""
     @State private var results: [RAWGGame] = []
@@ -90,8 +97,25 @@ struct GameFormView: View {
 
                 Section("Game") {
                     TextField("Title", text: $title)
+                    // After picking a search result: only that game's platforms.
+                    // Otherwise: every platform, grouped by family (PlayStation, Xbox, ...).
                     Picker("Platform", selection: $platform) {
-                        ForEach(Platform.allCases) { Text($0.label).tag($0) }
+                        if showingGamePlatformsOnly {
+                            ForEach(availablePlatforms) { Text($0.label).tag($0) }
+                        } else {
+                            ForEach(PlatformFamily.allCases) { family in
+                                Section(family.rawValue) {
+                                    ForEach(Platform.inFamily(family)) { Text($0.label).tag($0) }
+                                }
+                            }
+                        }
+                    }
+                    .pickerStyle(.navigationLink)
+                    if showingGamePlatformsOnly {
+                        Button("Played it somewhere else? Show all platforms") {
+                            showAllPlatforms = true
+                        }
+                        .font(.caption)
                     }
                 }
 
@@ -112,6 +136,8 @@ struct GameFormView: View {
                         .lineLimit(3...6)
                 }
             }
+            .scrollContentBackground(.hidden)   // let the neon background show through
+            .background(NeonBackground())
             .navigationTitle(game == nil ? "Add Game" : "Edit Game")
             // Runs a search whenever searchText changes. Waiting 0.4s first means we
             // only call the API once you pause typing, not on every keystroke.
@@ -173,7 +199,11 @@ struct GameFormView: View {
         releaseYear = result.releaseYear
         genres = result.genreText
         rawgID = result.id
-        if let guess = result.suggestedPlatform { platform = guess }
+        // If RAWG lists a platform we don't have, fall back to "Other" rather than
+        // leaving whatever was picked before (which could be wrong).
+        platform = result.suggestedPlatform ?? .other
+        availablePlatforms = result.matchedPlatforms
+        showAllPlatforms = false
         searchText = ""
         results = []
         searchError = nil

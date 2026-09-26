@@ -34,20 +34,7 @@ enum GameStatus: String, CaseIterable, Identifiable, Codable {
     }
 }
 
-enum Platform: String, CaseIterable, Identifiable, Codable {
-    case pc, playstation, xbox, nintendoSwitch, mobile, other
-    var id: String { rawValue }
-    var label: String {
-        switch self {
-        case .pc: "PC"
-        case .playstation: "PlayStation"
-        case .xbox: "Xbox"
-        case .nintendoSwitch: "Nintendo Switch"
-        case .mobile: "Mobile"
-        case .other: "Other"
-        }
-    }
-}
+// Platform (every console, PC, mobile, etc.) lives in Platform.swift
 
 @Model
 final class Game {
