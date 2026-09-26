@@ -20,6 +20,7 @@ An iPhone app for tracking your video game backlog, built with SwiftUI and Swift
 - **Saved on the device** with SwiftData, so your list persists between launches.
 - **Cover art** loads from the web, with a letter tile as a fallback.
 - **Stats dashboard.** KPI tiles plus charts of games by status, platform, top genres, ratings and release decade, built with Swift Charts. Tap any bar to see the games behind it, then tap a game to edit it.
+- **Export to CSV.** Share your whole list as a CSV file (AirDrop, Files, Mail) from the Stats page, ready for Excel, Power BI, SQL or Python.
 - **Neon theme.** A dark gradient background with soft glows and frosted-glass cards on every screen.
 
 ## Project structure
@@ -32,6 +33,7 @@ An iPhone app for tracking your video game backlog, built with SwiftUI and Swift
 | `ContentView.swift` | Main list with status tabs, search, sorting and swipe actions |
 | `GameFormView.swift` | Form for adding and editing games, including RAWG search |
 | `StatsView.swift` | Stats dashboard: aggregations, charts and tap-to-drill-through |
+| `CSVExport.swift` | Builds the CSV file (with proper quoting) and hands it to the share sheet |
 | `NeonBackground.swift` | The shared neon gradient background |
 | `RAWG.swift` | API client: builds the request, downloads JSON, decodes results |
 | `Secrets.swift` | Your API key (git-ignored; see setup below) |
