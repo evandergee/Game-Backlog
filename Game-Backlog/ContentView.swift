@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var filter: GameStatus = .playing
     @State private var showingAdd = false
     @State private var editingGame: Game?
+    @State private var showingStats = false
 
     // The games matching the selected tab.
     private var filtered: [Game] {
@@ -55,6 +56,14 @@ struct ContentView: View {
             }
             .navigationTitle("Game Backlog 🎮")
             .toolbar {
+                // STEP 3: open the stats dashboard
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        showingStats = true
+                    } label: {
+                        Label("Stats", systemImage: "chart.bar.xaxis")
+                    }
+                }
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showingAdd = true
@@ -71,6 +80,9 @@ struct ContentView: View {
             }
             .sheet(item: $editingGame) { game in
                 GameFormView(game: game)
+            }
+            .sheet(isPresented: $showingStats) {
+                StatsView()
             }
         }
     }

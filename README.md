@@ -9,6 +9,7 @@ An iPhone app for tracking your video game backlog, built with SwiftUI and Swift
 - **Ratings and notes.** Rate games from 1 to 5 stars and add notes.
 - **Saved on the device** with SwiftData, so your list persists between launches.
 - **Cover art** loads from the web, with a letter tile as a fallback.
+- **Stats dashboard.** KPI tiles plus charts of games by status, platform, top genres, ratings and release decade, built with Swift Charts.
 - Tap to edit a game, and swipe left to delete one.
 
 ## Project structure
@@ -19,6 +20,7 @@ An iPhone app for tracking your video game backlog, built with SwiftUI and Swift
 | `Game.swift` | Data model (the "games table") and status/platform choices |
 | `ContentView.swift` | Main list with status tabs and cover art |
 | `GameFormView.swift` | Form for adding and editing games, including RAWG search |
+| `StatsView.swift` | Stats dashboard: aggregations and charts |
 | `RAWG.swift` | API client: builds the request, downloads JSON, decodes results |
 | `Secrets.swift` | Your API key (git-ignored; see setup below) |
 
@@ -28,6 +30,7 @@ An iPhone app for tracking your video game backlog, built with SwiftUI and Swift
 - **Mapping JSON to a schema.** Only the fields the app needs are decoded, and `snake_case` keys like `background_image` are converted to Swift names automatically.
 - **Keeping secrets out of source control.** The API key lives in a git-ignored file, so it never reaches GitHub.
 - **Not overloading an API.** Search waits until you pause typing before calling RAWG, instead of sending a request on every keystroke.
+- **Aggregating data for a dashboard.** Each chart is a GROUP BY and COUNT over the games table. Genres are stored as a comma-separated string, so they're split into one row per genre first, like `STRING_SPLIT` or `UNNEST` in SQL.
 - **Evolving a schema.** New columns (cover, year, genres) were added to an existing SwiftData model without losing saved data.
 
 ## Setup
