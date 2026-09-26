@@ -9,3 +9,6 @@ build/
 
 # Private API keys — never upload
 Game-Backlog/Secrets.swift
+
+# Files the Claude app saves into this folder
+Claude outputs/
