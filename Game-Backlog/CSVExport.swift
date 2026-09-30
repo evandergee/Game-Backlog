@@ -27,7 +27,8 @@ nonisolated struct GamesCSV: Transferable {
 extension GamesCSV {
     // Build the CSV from the games table, like:
     //   SELECT title, status, platform, ... FROM games ORDER BY date_added
-    init(games: [Game]) {
+    // Runs on the main actor, because it reads app data (games, labels) that lives there.
+    @MainActor init(games: [Game]) {
         let header = ["title", "status", "platform", "platform_family", "rating",
                       "release_year", "genres", "date_added", "notes", "rawg_id"]
 
